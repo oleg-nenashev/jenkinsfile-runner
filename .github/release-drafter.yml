@@ -30,5 +30,3 @@ template: |
 #replacers:
 #  - search: '/\[*JENKINS-(\d+)\]*/g'
 #    replace: '[$1](https://issues.jenkins-ci.org/browse$1)'
-
-# TODO: Probot docs
