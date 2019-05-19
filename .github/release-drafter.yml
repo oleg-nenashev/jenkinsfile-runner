@@ -27,6 +27,6 @@ template: |
   ## Changes
   $CHANGES
 
-replacers:
-  - search: '/\[*JENKINS-(\d+)\]*/g'
-    replace: '[$1](https://issues.jenkins-ci.org/browse$1)'
+#replacers:
+#  - search: '/\[*JENKINS-(\d+)\]*/g'
+#    replace: '[$1](https://issues.jenkins-ci.org/browse$1)'
