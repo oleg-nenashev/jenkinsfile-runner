@@ -125,7 +125,7 @@ public class JenkinsfileRunnerLauncher extends JenkinsEmbedder {
         try {
             // so that test code has all the access to the system
             ACL.impersonate(ACL.SYSTEM);
-            ClassLoader cl = new ClassLoaderBuilder(jenkins.getPluginManager().uberClassLoader)
+            ClassLoader cl = new ClassLoaderBuilder(jenkins.getPluginManager().uberClassLoader, "Runner")
                     .collectJars(new File(bootstrap.appRepo, "io/jenkins/jenkinsfile-runner/payload"))
                     .make();
 
