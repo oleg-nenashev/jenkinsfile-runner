@@ -18,3 +18,6 @@ Once Jenkinsfile Runner is built locally, the demo can be launched as...
 java -jar ../../app/target/jenkinsfile-runner-standalone.jar -p ../../vanilla-package/target/plugins/ -w ../../vanilla-package/target/war/jenkins.war -f . 
 ```
 
+## Profiling
+
+JAVA_OPTS=-XX:StartFlightRecording=disk=true,dumponexit=true,filename=recording.jfr,maxsize=1024m,maxage=1d,settings=profile,path-to-gc-roots=true ../../app/target/appassembler/bin/jenkinsfile-runner -p ../../vanilla-package/target/plugins/ -w ../../vanilla-package/target/war/jenkins.war -f . 

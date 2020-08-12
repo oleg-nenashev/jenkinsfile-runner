@@ -26,3 +26,4 @@ demo/cwp-jdk11/source/
 **/.settings/
 tests/*.log
 
+**/jdk-11.0.8+10/
