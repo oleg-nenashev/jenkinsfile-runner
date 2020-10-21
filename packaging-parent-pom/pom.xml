@@ -54,26 +54,59 @@
     </plugins>
   </build>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>setup</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>payload</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>payload-dependencies</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>packaging-parent-pom</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>assembly-zip-config</classifier>
+      </dependency>
+      <dependency>
+        <groupId>io.jenkins.jenkinsfile-runner</groupId>
+        <artifactId>packaging-parent-pom</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>jenkins-properties</classifier>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>bootstrap</artifactId>
-      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>setup</artifactId>
-      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>payload</artifactId>
-      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>payload-dependencies</artifactId>
-      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
@@ -192,7 +225,6 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${project.parent.version}</version>
                       <classifier>assembly-zip-config</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
@@ -201,7 +233,6 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${project.parent.version}</version>
                       <classifier>jenkins-properties</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
@@ -376,68 +407,42 @@
           <missing>.mvn/jfr-main-repo-marker.txt</missing>
         </file>
       </activation>
-      <dependencies>
-        <dependency>
-          <groupId>io.jenkins.jenkinsfile-runner</groupId>
-          <artifactId>bootstrap</artifactId>
-          <version>${jfr.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.jenkins.jenkinsfile-runner</groupId>
-          <artifactId>setup</artifactId>
-          <version>${jfr.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.jenkins.jenkinsfile-runner</groupId>
-          <artifactId>payload</artifactId>
-          <version>${jfr.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>io.jenkins.jenkinsfile-runner</groupId>
-          <artifactId>payload-dependencies</artifactId>
-          <version>${jfr.version}</version>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>retrieve-packaging-resources</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <!-- we use copy as this is a dependency from outside the reactor -->
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <skip>${jfr.packaging.skip}</skip>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>io.jenkins.jenkinsfile-runner</groupId>
-                      <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
-                      <classifier>assembly-zip-config</classifier>
-                      <type>xml</type>
-                      <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
-                      <destFileName>zip.xml</destFileName>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>io.jenkins.jenkinsfile-runner</groupId>
-                      <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
-                      <classifier>jenkins-properties</classifier>
-                      <type>xml</type>
-                      <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
-                      <destFileName>jenkins.properties</destFileName>
-                    </artifactItem>
-                  </artifactItems>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${jfr.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>setup</artifactId>
+            <version>${jfr.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>payload</artifactId>
+            <version>${jfr.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>payload-dependencies</artifactId>
+            <version>${jfr.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>packaging-parent-pom</artifactId>
+            <version>${jfr.version}</version>
+            <classifier>assembly-zip-config</classifier>
+          </dependency>
+          <dependency>
+            <groupId>io.jenkins.jenkinsfile-runner</groupId>
+            <artifactId>packaging-parent-pom</artifactId>
+            <version>${jfr.version}</version>
+            <classifier>jenkins-properties</classifier>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
     </profile>
   </profiles>
 
