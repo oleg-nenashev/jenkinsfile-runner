@@ -63,22 +63,22 @@
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>bootstrap</artifactId>
-      <version>${jfr.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>setup</artifactId>
-      <version>${jfr.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>payload</artifactId>
-      <version>${jfr.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>io.jenkins.jenkinsfile-runner</groupId>
       <artifactId>payload-dependencies</artifactId>
-      <version>${jfr.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
@@ -197,7 +197,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
+                      <version>${project.parent.version}</version>
                       <classifier>assembly-zip-config</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
@@ -206,7 +206,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
+                      <version>${project.parent.version}</version>
                       <classifier>jenkins-properties</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
@@ -378,29 +378,29 @@
       <id>custom-jfr-version</id>
       <activation>
         <property>
-          <name>!jfr.version</name>
+          <name>jfr.version</name>
         </property>
       </activation>
       <dependencies>
         <dependency>
           <groupId>io.jenkins.jenkinsfile-runner</groupId>
           <artifactId>bootstrap</artifactId>
-          <version>${project.parent.version}</version>
+          <version>${jfr.version}</version>
         </dependency>
         <dependency>
           <groupId>io.jenkins.jenkinsfile-runner</groupId>
           <artifactId>setup</artifactId>
-          <version>${project.parent.version}</version>
+          <version>${jfr.version}</version>
         </dependency>
         <dependency>
           <groupId>io.jenkins.jenkinsfile-runner</groupId>
           <artifactId>payload</artifactId>
-          <version>${project.parent.version}</version>
+          <version>${jfr.version}</version>
         </dependency>
         <dependency>
           <groupId>io.jenkins.jenkinsfile-runner</groupId>
           <artifactId>payload-dependencies</artifactId>
-          <version>${project.parent.version}</version>
+          <version>${jfr.version}</version>
         </dependency>
       </dependencies>
       <build>
@@ -421,7 +421,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${project.parent.version}</version>
+                      <version>${jfr.version}</version>
                       <classifier>assembly-zip-config</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
@@ -430,7 +430,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${project.parent.version}</version>
+                      <version>${jfr.version}</version>
                       <classifier>jenkins-properties</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
