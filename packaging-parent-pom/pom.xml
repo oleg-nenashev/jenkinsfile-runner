@@ -13,7 +13,8 @@
 
   <properties>
     <jfr.name>jenkinsfile-runner-custom-build</jfr.name>
-    <jfr.version>0.1-undefined</jfr.version>
+    <!-- Used only when custom-jfr-version profile is active -->
+    <jfr.version>undefined</jfr.version>
     <!-- Do not package the app using App Assembler (most likely YAGNI, this is for parent POM) -->
     <jfr.skip.packaging>false</jfr.skip.packaging>
     <!-- Do not package the ZIP (Uber Jar is disabled due to https://github.com/jenkinsci/jenkinsfile-runner/issues/350) -->
@@ -402,11 +403,6 @@
     <!-- Workaround for MRELEASE-913. Profile is activated when building a project outside the main Jenkinsfile Runner repo -->
     <profile>
       <id>custom-jfr-version</id>
-      <activation>
-        <file>
-          <missing>.mvn/jfr-main-repo-marker.txt</missing>
-        </file>
-      </activation>
       <dependencyManagement>
         <dependencies>
           <dependency>
