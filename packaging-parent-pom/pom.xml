@@ -155,7 +155,7 @@
       <id>jfr-build-parent-pom</id>
       <activation>
         <file>
-          <exists>${project.build.directory}/../parent-pom-marker.txt</exists>
+          <exists>.mvn/parent-pom-marker.txt</exists>
         </file>
       </activation>
       <properties>
@@ -166,7 +166,7 @@
       <id>jfr-build-package</id>
       <activation>
         <file>
-          <missing>${project.build.directory}/../parent-pom-marker.txt</missing>
+          <missing>.mvn/parent-pom-marker.txt</missing>
         </file>
       </activation>
       <build>
@@ -235,7 +235,7 @@
       <id>jfr-package-app</id>
       <activation>
         <file>
-          <missing>${project.build.directory}/../parent-pom-marker.txt</missing>
+          <missing>.mvn/parent-pom-marker.txt</missing>
         </file>
       </activation>
       <build>
@@ -269,7 +269,7 @@
       <id>jfr-package-assembly</id>
       <activation>
         <file>
-          <missing>${project.build.directory}/../parent-pom-marker.txt</missing>
+          <missing>.mvn/parent-pom-marker.txt</missing>
         </file>
       </activation>
       <build>
@@ -314,7 +314,7 @@
       <id>jfr-package-dependencies</id>
       <activation>
         <file>
-          <missing>${project.build.directory}/../parent-pom-marker.txt</missing>
+          <missing>.mvn/parent-pom-marker.txt</missing>
         </file>
       </activation>
       <build>
@@ -368,14 +368,13 @@
       </build>
     </profile>
 
-    <!-- Workaround for MRELEASE-913 -->
+    <!-- Workaround for MRELEASE-913. Profile is activated when building a project outside the main Jenkinsfile Runner repo -->
     <profile>
       <id>custom-jfr-version</id>
       <activation>
-        <property>
-          <name>jfr.version</name>
-          <value>!undefined</value>
-        </property>
+        <file>
+          <missing>.mvn/jfr-main-repo-marker.txt</missing>
+        </file>
       </activation>
       <dependencies>
         <dependency>

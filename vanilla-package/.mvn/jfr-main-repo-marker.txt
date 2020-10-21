@@ -1,0 +1,1 @@
+// Forces JFR Packaging POM to use the project.parent.version for dependencies
