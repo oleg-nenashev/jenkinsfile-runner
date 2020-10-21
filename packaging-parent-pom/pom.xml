@@ -14,6 +14,7 @@
   <properties>
     <jfr.name>jenkinsfile-runner-custom-build</jfr.name>
     <jfr.version>${project.version}</jfr.version>
+    <jfr.assembly-settings.version>1.0-beta-17</jfr.assembly-settings.version>
     <!-- Do not package the app using App Assembler (most likely YAGNI, this is for parent POM) -->
     <jfr.skip.packaging>false</jfr.skip.packaging>
     <!-- Do not package the ZIP (Uber Jar is disabled due to https://github.com/jenkinsci/jenkinsfile-runner/issues/350) -->
@@ -172,6 +173,11 @@
       <build>
         <plugins>
           <plugin>
+            <!--TODO(oleg_nenashev): This is a very brittle approach as implemented now.
+                Creating child parent POMs will require an override.
+                Ideally the files should be supplied from another artifact or embedded into the Maven definition.
+                For now, jfr.assembly-settings.version is passed to workaround the reactor issue.
+             -->
             <artifactId>maven-dependency-plugin</artifactId>
             <executions>
               <execution>
@@ -187,7 +193,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
+                      <version>${jfr.assembly-settings.version}</version>
                       <classifier>assembly-zip-config</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
@@ -196,7 +202,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.version}</version>
+                      <version>${jfr.assembly-settings.version}</version>
                       <classifier>jenkins-properties</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
