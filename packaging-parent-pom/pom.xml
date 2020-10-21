@@ -13,12 +13,7 @@
 
   <properties>
     <jfr.name>jenkinsfile-runner-custom-build</jfr.name>
-    <!--FIXME(oleg_nenashev): Nested ${project.version} or ${project.parent.version} default cannot be used here because of MRELEASE-913.
-        Until that, we have to use an explicit ${project.parent.version} in the dependencies below.
-        To work it around, we will override dependencies when {jfr.version} is set via a profile
-     -->
-    <!--<jfr.version>1.0-beta-18</jfr.version>-->
-    <!-- <jfr.assembly-settings.version>1.0-beta-18</jfr.assembly-settings.version> -->
+    <jfr.version>undefined</jfr.version>-->
     <!-- Do not package the app using App Assembler (most likely YAGNI, this is for parent POM) -->
     <jfr.skip.packaging>false</jfr.skip.packaging>
     <!-- Do not package the ZIP (Uber Jar is disabled due to https://github.com/jenkinsci/jenkinsfile-runner/issues/350) -->
@@ -379,6 +374,7 @@
       <activation>
         <property>
           <name>jfr.version</name>
+          <value>!undefined</value>
         </property>
       </activation>
       <dependencies>
