@@ -13,8 +13,12 @@
 
   <properties>
     <jfr.name>jenkinsfile-runner-custom-build</jfr.name>
-    <jfr.version>${project.version}</jfr.version>
-    <jfr.assembly-settings.version>1.0-beta-17</jfr.assembly-settings.version>
+    <!--FIXME(oleg_nenashev): Nested ${project.version} or ${project.parent.version} default cannot be used here because of MRELEASE-913.
+        Until that, we have to use an explicit ${project.parent.version} in the dependencies below.
+        To work it around, we will override dependencies when {jfr.version} is set via a profile
+     -->
+    <!--<jfr.version>1.0-beta-18</jfr.version>-->
+    <!-- <jfr.assembly-settings.version>1.0-beta-18</jfr.assembly-settings.version> -->
     <!-- Do not package the app using App Assembler (most likely YAGNI, this is for parent POM) -->
     <jfr.skip.packaging>false</jfr.skip.packaging>
     <!-- Do not package the ZIP (Uber Jar is disabled due to https://github.com/jenkinsci/jenkinsfile-runner/issues/350) -->
@@ -193,7 +197,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.assembly-settings.version}</version>
+                      <version>${jfr.version}</version>
                       <classifier>assembly-zip-config</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
@@ -202,7 +206,7 @@
                     <artifactItem>
                       <groupId>io.jenkins.jenkinsfile-runner</groupId>
                       <artifactId>packaging-parent-pom</artifactId>
-                      <version>${jfr.assembly-settings.version}</version>
+                      <version>${jfr.version}</version>
                       <classifier>jenkins-properties</classifier>
                       <type>xml</type>
                       <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
@@ -359,6 +363,78 @@
                       <type>war</type>
                       <outputDirectory>${project.build.directory}/war</outputDirectory>
                       <destFileName>jenkins.war</destFileName>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Workaround for MRELEASE-913 -->
+    <profile>
+      <id>custom-jfr-version</id>
+      <activation>
+        <property>
+          <name>!jfr.version</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>io.jenkins.jenkinsfile-runner</groupId>
+          <artifactId>bootstrap</artifactId>
+          <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.jenkins.jenkinsfile-runner</groupId>
+          <artifactId>setup</artifactId>
+          <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.jenkins.jenkinsfile-runner</groupId>
+          <artifactId>payload</artifactId>
+          <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>io.jenkins.jenkinsfile-runner</groupId>
+          <artifactId>payload-dependencies</artifactId>
+          <version>${project.parent.version}</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>retrieve-packaging-resources</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <!-- we use copy as this is a dependency from outside the reactor -->
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <skip>${jfr.packaging.skip}</skip>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>io.jenkins.jenkinsfile-runner</groupId>
+                      <artifactId>packaging-parent-pom</artifactId>
+                      <version>${project.parent.version}</version>
+                      <classifier>assembly-zip-config</classifier>
+                      <type>xml</type>
+                      <outputDirectory>${project.build.directory}/generated-sources/assembly</outputDirectory>
+                      <destFileName>zip.xml</destFileName>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>io.jenkins.jenkinsfile-runner</groupId>
+                      <artifactId>packaging-parent-pom</artifactId>
+                      <version>${project.parent.version}</version>
+                      <classifier>jenkins-properties</classifier>
+                      <type>xml</type>
+                      <outputDirectory>${project.build.directory}/generated-sources/resources-filtered</outputDirectory>
+                      <destFileName>jenkins.properties</destFileName>
                     </artifactItem>
                   </artifactItems>
                 </configuration>
